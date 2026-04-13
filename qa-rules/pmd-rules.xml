@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    <description>This ruleset detects bad practices in my code</description>
+
+    <!-- Place to add your rules -->
+
+    <!-- Example: Add a specific rule -->
+    <rule ref="category/java/errorprone.xml/EmptyCatchBlock" message="Empty catch blocks should be avoided" >
+        <priority>5</priority>
+    </rule>
+    <!-- Explicit System.out rule -->
+    <rule ref="category/java/bestpractices.xml/SystemPrintln"/>
+
+    <!-- Example: Add a whole category of rules -->
+    <!--<rule ref="category/java/bestpractices.xml"/>-->
+
+</ruleset>

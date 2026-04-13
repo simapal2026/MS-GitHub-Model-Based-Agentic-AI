@@ -1,0 +1,84 @@
+package com.ai_automation.example.demo.controller;
+
+import java.util.List;
+import java.util.regex.Pattern;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ai_automation.example.demo.configuration.Constants;
+import com.ai_automation.example.demo.exception.BadCredentialsException;
+import com.ai_automation.example.demo.exception.BadRequestException;
+import com.ai_automation.example.demo.model.User;
+import com.ai_automation.example.demo.request.CreateUserRequest;
+import com.ai_automation.example.demo.response.CreateUserResponse;
+import com.ai_automation.example.demo.response.FindAllUsersResponse;
+import com.ai_automation.example.demo.service.abstraction.IUserService;
+import com.ai_automation.example.demo.service.abstraction.IWealthService;
+
+@RestController
+@RequestMapping(value = "/user", produces = { MediaType.APPLICATION_JSON_VALUE })
+public class UserController {
+
+	private IUserService userService;
+	private IWealthService wealthService;
+
+	@Autowired
+	public UserController(IUserService userService, IWealthService wealthService) {
+		this.userService = userService;
+		this.wealthService = wealthService;
+	}
+
+	@GetMapping("/find/all")
+	public FindAllUsersResponse findAll() {
+		List<User> userList = userService.findAll();
+		
+		FindAllUsersResponse response = new FindAllUsersResponse();
+		response.setUserList(userList);
+		//bad code
+		System.out.println("Bad 1>>>>>");
+		return response;
+	}
+
+	@PostMapping("/create")
+	public CreateUserResponse createUser(@RequestBody CreateUserRequest request) {
+
+		if (request.getUsername() == null || request.getUsername().equals("")) {
+			throw new BadRequestException(Constants.MESSAGE_INVALIDUSERNAME);
+		}
+		
+		if (request.getPassword() == null || request.getPassword().equals("")) {
+			throw new BadRequestException(Constants.MESSAGE_INVALIDPASSWORD);
+		}
+
+		if (request.getTcno() == null || request.getTcno().length() != 11 || !Pattern.matches("[0-9]+", request.getTcno())) {
+			throw new BadRequestException(Constants.MESSAGE_INVALIDTCNO);
+		}
+
+		boolean isUsernameExist = userService.isUsernameExist(request.getUsername());
+		if (isUsernameExist) {
+			throw new BadCredentialsException(Constants.MESSAGE_SAMEUSERNAMEEXIST);
+		}
+
+		boolean isTcnoExist = userService.isTcnoExist(request.getTcno());
+		if (isTcnoExist) {
+			throw new BadCredentialsException(Constants.MESSAGE_SAMETCNOEXIST);
+		}
+
+		User user = userService.createNewUser(new User(request.getUsername(), request.getPassword(), request.getTcno()));
+		wealthService.newWealthRecord(user.getId());
+
+		CreateUserResponse response = new CreateUserResponse();
+		response.setUsername(user.getUsername());
+		response.setTcno(user.getTcno());
+		//bad code
+		System.out.println("Bad 2>>>>>");
+		return response;
+	}
+
+}
