@@ -37,7 +37,9 @@ public class UserController {
 	@GetMapping("/find/all")
 	public FindAllUsersResponse findAll() {
 		List<User> userList = userService.findAll();
-		
+		//bad code
+		System.out.println("Bad code >>>>1");
+		System.out.println("Bad code >>>>11");
 		FindAllUsersResponse response = new FindAllUsersResponse();
 		response.setUserList(userList);
 		return response;
@@ -70,7 +72,9 @@ public class UserController {
 
 		User user = userService.createNewUser(new User(request.getUsername(), request.getPassword(), request.getTcno()));
 		wealthService.newWealthRecord(user.getId());
-
+        //bad code
+		System.out.println("Bad code >>>>2");
+		System.out.println("Bad code >>>>22");
 		CreateUserResponse response = new CreateUserResponse();
 		response.setUsername(user.getUsername());
 		response.setTcno(user.getTcno());
