@@ -40,9 +40,6 @@ public class UserController {
 		
 		FindAllUsersResponse response = new FindAllUsersResponse();
 		response.setUserList(userList);
-		//bad code
-		System.out.println("Bad 1>>>>>");
-		System.out.println("Bad 11>>>>>");
 		return response;
 	}
 
@@ -77,9 +74,6 @@ public class UserController {
 		CreateUserResponse response = new CreateUserResponse();
 		response.setUsername(user.getUsername());
 		response.setTcno(user.getTcno());
-		//bad code
-		System.out.println("Bad 2>>>>>");
-		System.out.println("Bad 22>>>>>");
 		return response;
 	}
 
