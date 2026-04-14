@@ -137,7 +137,7 @@ jobs:
       - name: Call GitHub Model API
         run: |
           curl -s https://models.inference.ai.azure.com/chat/completions \
-            -H "Authorization: Bearer ${{ secrets.MY_MODEL_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.MY_GITHUB_COPILOT_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d @request.json > response.json
 
@@ -211,7 +211,7 @@ jobs:
       - name: Call Model API
         run: |
           curl -s https://models.inference.ai.azure.com/chat/completions \
-            -H "Authorization: Bearer ${{ secrets.MY_MODEL_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.MY_GITHUB_COPILOT_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d @request.json > response.json
 
