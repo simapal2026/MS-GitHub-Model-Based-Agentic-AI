@@ -42,6 +42,7 @@ public class UserController {
 		response.setUserList(userList);
 		//bad code
 		System.out.println("Bad 1>>>>>");
+		System.out.println("Bad 11>>>>>");
 		return response;
 	}
 
@@ -78,6 +79,7 @@ public class UserController {
 		response.setTcno(user.getTcno());
 		//bad code
 		System.out.println("Bad 2>>>>>");
+		System.out.println("Bad 22>>>>>");
 		return response;
 	}
 
