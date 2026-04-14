@@ -243,7 +243,8 @@ jobs:
       - name: Download patches
         uses: actions/download-artifact@v4
         with:
-          path: patches
+          name: fix-patch
+          path: patches/fix
 
       - name: Apply patches safely
         run: |
@@ -275,4 +276,5 @@ jobs:
             - Coverage-driven test cases
 
             Please review before merging.
+          draft: false
             
