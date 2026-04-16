@@ -1,0 +1,54 @@
+diff --git a/src/main/java/com/ai_automation/example/demo/controller/UserController.java b/src/main/java/com/ai_automation/example/demo/controller/UserController.java
+index 2d3e4f7..e6f8c2a 100644
+--- a/src/main/java/com/ai_automation/example/demo/controller/UserController.java
++++ b/src/main/java/com/ai_automation/example/demo/controller/UserController.java
+@@ -1,6 +1,8 @@
+ package com.ai_automation.example.demo.controller;
+ 
++import org.slf4j.Logger;
++import org.slf4j.LoggerFactory;
+ import java.util.List;
+ import java.util.regex.Pattern;
+ 
+@@ -19,6 +21,9 @@
+ @RestController
+ @RequestMapping(value = "/user", produces = { MediaType.APPLICATION_JSON_VALUE })
+ public class UserController {
++
++	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+ 
+ 	private IUserService userService;
+ 	private IWealthService wealthService;
+ 
+@@ -41,8 +46,10 @@
+ 	public FindAllUsersResponse findAll() {
+ 		List<User> userList = userService.findAll();
+ 		
+ 		FindAllUsersResponse response = new FindAllUsersResponse();
+ 		response.setUserList(userList);
+-		//bad code
+-		System.out.println("Bad Code>>>>1");
+-		System.out.println("Bad Code>>>>11");
++		//bad code
++		logger.info("Bad Code>>>>1");
++		logger.info("Bad Code>>>>11");
+ 		return response;
+ 	}
+ 
+@@ -74,8 +81,10 @@
+ 		User user = userService.createNewUser(new User(request.getUsername(), request.getPassword(), request.getTcno()));
+ 		wealthService.newWealthRecord(user.getId());
+-		//bad code
+-		System.out.println("Bad Code>>>>2");
+-		System.out.println("Bad Code>>>>22");
++		//bad code
++		logger.info("Bad Code>>>>2");
++		logger.info("Bad Code>>>>22");
+ 
+ 		CreateUserResponse response = new CreateUserResponse();
+ 		response.setUsername(user.getUsername());
+ 		response.setTcno(user.getTcno());
+ 		return response;
+ 	}
+ 
+ }
